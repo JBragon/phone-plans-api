@@ -4,8 +4,6 @@ using JBragon.Business.Interfaces;
 using JBragon.Business.Services;
 using JBragon.DataAccess.Context;
 using JBragon.Models;
-using JBragon.Models.Mapper.Request;
-using JBragon.Models.Mapper.Response;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
