@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>JBragon.PhonePlans.Common</AssemblyName>
+    <RootNamespace>JBragon.Common</RootNamespace>
+  </PropertyGroup>
+
+</Project>
