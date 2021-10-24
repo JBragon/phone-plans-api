@@ -1,5 +1,9 @@
 
 # Phone Plans Api
+
+![](https://img.shields.io/github/commit-activity/y/JBragon/phone-plans-api) ![](https://img.shields.io/github/repo-size/JBragon/phone-plans-api) ![](https://img.shields.io/github/last-commit/JBragon/phone-plans-api) ![](https://img.shields.io/github/license/JBragon/phone-plans-api?)
+
+
 API de CRUD de planos telefônicos. 
 Os endpoints estão documentados pelo swagger, ao rodar a aplicação irá abrir na página do swagger.
 Os scripts para criação e população do banco de dados estão na pasta scritps da raiz do projeto
