@@ -3,14 +3,18 @@ using AutoMapper;
 using JBragon.Business.Interfaces;
 using JBragon.DataAccess.Context;
 using JBragon.Models;
+using JBragon.Models.Filters;
+using JBragon.Models.Infrastructure;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace JBragon.Business.Tests
 {
     public class PhonePlansTest : IClassFixture<TestFixture>
     {
-        private readonly IPhonePlanService _PhonePlanService;
+        private readonly IPhonePlanService _phonePlanService;
         private readonly Mock<IUnitOfWork<MainContext>> _unitOfWorkMock;
         private readonly IMapper _mapper;
 
@@ -18,7 +22,7 @@ namespace JBragon.Business.Tests
         {
             var fixture = new TestFixture();
 
-            _PhonePlanService = fixture.PhonePlanService;
+            _phonePlanService = fixture.PhonePlanService;
             _unitOfWorkMock = fixture.unitOfWorkMock;
             _mapper = fixture.mapper;
         }
@@ -39,7 +43,7 @@ namespace JBragon.Business.Tests
                 Name = "Mais Controle 1000 minutos"
             };
 
-            var result = _PhonePlanService.Create<PhonePlan>(phonePlan);
+            var result = _phonePlanService.Create<PhonePlan>(phonePlan);
 
             Assert.True(result != null);
             Assert.IsType<PhonePlan>(result);
@@ -50,7 +54,7 @@ namespace JBragon.Business.Tests
         [InlineData(1)]
         public void PhonePlan_Get_Success(int Id)
         {
-            var result = _PhonePlanService.GetById<PhonePlan>(Id);
+            var result = _phonePlanService.GetById<PhonePlan>(Id);
 
             Assert.True(result != null);
             Assert.True(result.Id == Id);
@@ -61,9 +65,47 @@ namespace JBragon.Business.Tests
         [InlineData(0)]
         public void PhonePlan_Get_Null(int Id)
         {
-            var result = _PhonePlanService.GetById<PhonePlan>(Id);
+            var result = _phonePlanService.GetById<PhonePlan>(Id);
 
             Assert.True(result == null);
+        }
+
+        [Fact]
+        public void PhonePlan_Search_Success()
+        {
+            var filter = new PhonePlanFilter()
+            {
+                Name = "Mais Controle 500 minutos",
+                DDDCode= 31
+            };
+
+            var result = _phonePlanService.Search<PhonePlan>(filter);
+
+            Assert.NotNull(result);
+            Assert.True(result.Items.Any());
+            Assert.Equal(1, result.Items.FirstOrDefault().Id);
+            Assert.IsType<List<PhonePlan>>(result.Items);
+            Assert.IsType<SearchResponse<PhonePlan>>(result);
+        }
+
+        [Fact]
+        public void PhonePlan_Search_Null()
+        {
+            //Arrange
+            var filter = new PhonePlanFilter()
+            {
+                Name = "Mais Controle 500 minutos",
+                DDDCode = 33
+            };
+
+            //Act
+            var result = _phonePlanService.Search<PhonePlan>(filter);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.False(result.Items.Any());
+            Assert.IsType<List<PhonePlan>>(result.Items);
+            Assert.IsType<SearchResponse<PhonePlan>>(result);
         }
 
         [Fact]
@@ -81,7 +123,7 @@ namespace JBragon.Business.Tests
                 Name = "Mais Controle 500 minutos"
             };
 
-            var result = _PhonePlanService.Update<PhonePlan>(phonePlan);
+            var result = _phonePlanService.Update<PhonePlan>(phonePlan);
 
             Assert.True(result != null);
             Assert.IsType<PhonePlan>(result);
@@ -92,7 +134,7 @@ namespace JBragon.Business.Tests
         [InlineData(1)]
         public void PhonePlan_Delete_Success(int Id)
         {
-            _PhonePlanService.Delete(Id);
+            _phonePlanService.Delete(Id);
 
             _unitOfWorkMock.Verify(uow => uow.SaveChanges(false), Times.Once);
         }

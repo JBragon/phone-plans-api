@@ -40,6 +40,8 @@ namespace JBragon.DataAccess.Configurations
                 .WithOne(y => y.DDD)
                 .HasForeignKey(x => x.DDDId);
 
+            builder.HasIndex(p => new { p.DDDCode })
+                .IsUnique(true);
         }
     }
 }

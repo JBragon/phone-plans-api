@@ -9,7 +9,7 @@ namespace JBragon.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<PhonePlanType> builder)
         {
             // Table & Column Mappings
-            builder.ToTable("DDD");
+            builder.ToTable("PhonePlanType");
 
             // Primary Key
             builder.HasKey(t => t.Id);
@@ -31,6 +31,8 @@ namespace JBragon.DataAccess.Configurations
                 .WithOne(y => y.PhonePlanType)
                 .HasForeignKey(x => x.PhonePlanTypeId);
 
+            builder.HasIndex(p => new { p.Description })
+                .IsUnique(true);
         }
     }
 }

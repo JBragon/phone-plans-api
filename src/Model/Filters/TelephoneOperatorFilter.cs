@@ -7,33 +7,22 @@ using System.Linq.Expressions;
 
 namespace JBragon.Models.Filters
 {
-    public class PhonePlanFilter : Filter
+    public class TelephoneOperatorFilter : Filter
     {
-        public string PhonePlanType { get; set; }
-        public string TelephoneOperator { get; set; }
         public string Name { get; set; }
-        public int DDDCode { get; set; }
 
-        private Expression<Func<PhonePlan, bool>> filter = PredicateBuilder.New<PhonePlan>(true);
-        private Func<IQueryable<PhonePlan>, IOrderedQueryable<PhonePlan>> order;
+        private Expression<Func<TelephoneOperator, bool>> filter = PredicateBuilder.New<TelephoneOperator>(true);
+        private Func<IQueryable<TelephoneOperator>, IOrderedQueryable<TelephoneOperator>> order;
 
-        public Expression<Func<PhonePlan, bool>> GetFilter()
+        public Expression<Func<TelephoneOperator, bool>> GetFilter()
         {
-            filter = filter.And(x => x.DDD.DDDCode == DDDCode);
-
-            if (!string.IsNullOrEmpty(PhonePlanType))
-                filter = filter.And(x => x.PhonePlanType.Description == PhonePlanType);
-
-            if (!string.IsNullOrEmpty(TelephoneOperator))
-                filter = filter.And(x => x.TelephoneOperator.Name == TelephoneOperator);
-
             if (!string.IsNullOrEmpty(Name))
                 filter = filter.And(x => x.Name == Name);
 
             return filter;
         }
 
-        public Func<IQueryable<PhonePlan>, IOrderedQueryable<PhonePlan>> GetOrder()
+        public Func<IQueryable<TelephoneOperator>, IOrderedQueryable<TelephoneOperator>> GetOrder()
         {
             if (!string.IsNullOrEmpty(Sort))
             {

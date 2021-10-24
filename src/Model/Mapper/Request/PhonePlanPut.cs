@@ -3,8 +3,9 @@ using JBragon.Models.Infrastructure;
 
 namespace JBragon.Models.Mapper.Request
 {
-    public class PhonePlanPost
+    public class PhonePlanPut
     {
+        public int Id { get; set; }
         public int DDDId { get; set; }
         public int TelephoneOperatorId { get; set; }
         public int PhonePlanTypeId { get; set; }
@@ -14,10 +15,14 @@ namespace JBragon.Models.Mapper.Request
         public string Name { get; set; }
     }
 
-    public class PhonePlanPostValidation : AbstractValidator<PhonePlanPost>
+    public class PhonePlanPutValidation : AbstractValidator<PhonePlanPut>
     {
-        public PhonePlanPostValidation()
+        public PhonePlanPutValidation()
         {
+            RuleFor(v => v.Id)
+              .NotEmpty()
+              .WithMessage(RuleMessage.Informed("{PropertyName}"));
+
             RuleFor(v => v.DDDId)
               .NotEmpty()
               .WithMessage(RuleMessage.Informed("{PropertyName}"));
@@ -33,15 +38,15 @@ namespace JBragon.Models.Mapper.Request
             RuleFor(v => v.Minutes)
              .NotEmpty()
              .WithMessage(RuleMessage.Informed("{PropertyName}"));
-            
+
             RuleFor(v => v.InternetFranchise)
              .NotEmpty()
              .WithMessage(RuleMessage.Informed("{PropertyName}"));
-            
+
             RuleFor(v => v.PlanPrice)
              .NotEmpty()
              .WithMessage(RuleMessage.Informed("{PropertyName}"));
-            
+
             RuleFor(v => v.Name)
              .NotEmpty()
              .WithMessage(RuleMessage.Informed("{PropertyName}"));

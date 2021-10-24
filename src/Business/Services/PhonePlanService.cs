@@ -1,12 +1,11 @@
 ﻿using Arch.EntityFrameworkCore.UnitOfWork;
 using AutoMapper;
 using JBragon.Business.Interfaces;
-using System;
-using JBragon.Models.Mapper.Request;
 using JBragon.Models;
 using JBragon.DataAccess.Context;
 using JBragon.Models.Filters;
 using JBragon.Models.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace JBragon.Business.Services
 {
@@ -17,26 +16,27 @@ namespace JBragon.Business.Services
         {
         }
 
-        public PhonePlanPost Create(PhonePlanPost inputModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(PhonePlanPost vehicle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public SearchResponse<TOutputModel> Search<TOutputModel>(PhonePlanFilter phonePlanFilter)
+        public SearchResponse<TOutputModel> Search<TOutputModel>(PhonePlanFilter filter)
         {
             var response = base.Search<TOutputModel>(
-                filter: phonePlanFilter.GetFilter(),
-                orderBy: phonePlanFilter.GetOrder<PhonePlan>(),
-                pageIndex: phonePlanFilter.Page,
-                pageSize: phonePlanFilter.RowsPerPage                
-                );
+               filter.GetFilter(),
+               include: source => source.Include(i => i.DDD)
+                                        .Include(i => i.PhonePlanType)
+                                        .Include(i => i.TelephoneOperator),
+               orderBy: filter.GetOrder(),
+               filter.Page,
+               filter.RowsPerPage
+            );
 
             return response;
+        }
+
+        public override TOutputModel GetById<TOutputModel>(int Id)
+        {
+            return base.GetById<TOutputModel>(Id,
+                include: source => source.Include(i => i.DDD)
+                                        .Include(i => i.PhonePlanType)
+                                        .Include(i => i.TelephoneOperator));
         }
     }
 }
