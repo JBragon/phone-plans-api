@@ -37,7 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Model\Models.csproj" />
   </ItemGroup>
 

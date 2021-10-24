@@ -1,10 +1,8 @@
 ﻿using FluentValidation;
 using JBragon.Business.Interfaces;
 using JBragon.Business.Services;
-using JBragon.Common.Interfaces;
 using JBragon.Models.Mapper.Request;
 using JBragon.Resources;
-using JBragon.WebApi.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
