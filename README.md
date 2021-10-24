@@ -1,14 +1,15 @@
+
 # Phone Plans Api
 API de CRUD de planos telefônicos. 
 Os endpoints estão documentados pelo swagger, ao rodar a aplicação irá abrir na página do swagger.
 Os scripts para criação e população do banco de dados estão na pasta scritps da raiz do projeto
 
-###Diagrama de Entidade e Relacionamentos
+### Diagrama de Entidade e Relacionamentos
 
 ![](https://github.com/JBragon/phone-plans-api/blob/master/scripts/phone-plans-api-DER.jpg?raw=true)
 
 
-###Estrutura do Projeto
+### Estrutura do Projeto
 
 ![](https://github.com/JBragon/phone-plans-api/blob/master/solution-structure.png?raw=true)
 
